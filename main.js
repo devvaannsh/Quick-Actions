@@ -1,10 +1,18 @@
+/*
+ * This extension creates an action bar at the top of the editor
+ * which provides various options like cut, copy, paste, save, and many more like in Notepad++
+ */
+
 define(function (require, exports, module) {
     "use strict";
 
     const AppInit = brackets.getModule("utils/AppInit");
     const ExtensionUtils = brackets.getModule('utils/ExtensionUtils');
     const WorkspaceManager = brackets.getModule("view/WorkspaceManager");
-
+    const CommandManager = brackets.getModule("command/CommandManager");
+    const Commands = brackets.getModule("command/Commands");
+    const EditorManager = brackets.getModule("editor/EditorManager");
+   
     const ActionBarHTML = require("text!./html/actionBar.html");
     ExtensionUtils.loadStyleSheet(module, 'styles/actionBar.css');
 
@@ -14,6 +22,39 @@ define(function (require, exports, module) {
      */
     const $actionBar = $(ActionBarHTML);
     
+    /**
+     * Map button IDs to their corresponding commands
+     * @const
+     */
+    const actionCommands = {
+        "save": Commands.FILE_SAVE,
+        "cut": Commands.EDIT_CUT,
+        "copy": Commands.EDIT_COPY,
+        "paste": Commands.EDIT_PASTE,
+        "undo": Commands.EDIT_UNDO,
+        "redo": Commands.EDIT_REDO
+    };
+    
+
+    /**
+     * Responsible for handling the action bar button click
+     * @param {String} actionName - name of the action like : cut, copy, save, etc
+     */
+    function handleButtonAction(actionName) {
+        // get the corresponding command
+        const command = actionCommands[actionName];
+        if (command) {
+            const editor = EditorManager.getFocusedEditor() || EditorManager.getActiveEditor();
+            if (editor) {
+                // we need to specifically focus the editor,
+                // as when the button is clicked the editor loses focus because of which operations like
+                // cut, copy, paste, undo, redo doesn't work
+                editor.focus();
+                CommandManager.execute(command);
+            }
+        }
+    }
+   
 
     /**
      * Registers click handlers for all the action bar buttons
@@ -25,10 +66,10 @@ define(function (require, exports, module) {
             // all the buttons has id in the format 'cut-button', 'paste-button',
             // so to get the name, we remove '-button'
             const actionName = buttonId.replace("-button", "");
-            console.log(actionName + " button clicked from action bar");
+            handleButtonAction(actionName);
         });
     }
-    
+
 
     /**
      * Used to initialize the action bar stuff.
