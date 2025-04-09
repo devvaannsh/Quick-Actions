@@ -28,6 +28,7 @@ define(function (require, exports, module) {
      */
     const actionCommands = {
         "save": Commands.FILE_SAVE,
+        "save-all": Commands.FILE_SAVE_ALL,
         "cut": Commands.EDIT_CUT,
         "copy": Commands.EDIT_COPY,
         "paste": Commands.EDIT_PASTE,
