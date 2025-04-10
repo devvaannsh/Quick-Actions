@@ -2,7 +2,7 @@
     "title": "Quick Actions",
     "name": "github-devvaannsh-quick-actions",
     "description": "A Notepad++-like action bar for Phoenix Code with quick access to commonly used functions like save, cut, copy, paste, and beautify.",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "license": "MIT",
     "author": "Pluto https://github.com/devvaannsh",
     "homepage": "https://github.com/devvaannsh/Quick-Actions",
