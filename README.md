@@ -25,6 +25,10 @@ After installation, the action bar appears automatically. Just click any button 
 
 Buttons will be disabled when their actions aren't available (like Undo when there's nothing to undo).
 
+You can also toggle the visibility of the action bar using View menu > Toggle Action Bar.
+
+![Toggle Action Bar Visibility](./assets/toggle-action-bar.png)
+
 ## License
 
 MIT
