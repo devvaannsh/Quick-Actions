@@ -1,20 +1,32 @@
 {
-    "title": "Name of the extension",
-    "name": "github-<owner>-<repo>",
-    "description": "A sample extension.",
+    "title": "Quick Actions",
+    "name": "github-devvaannsh-quick-actions",
+    "description": "A Notepad++-like action bar for Phoenix Code with quick access to commonly used functions like save, cut, copy, paste, and beautify.",
     "version": "0.0.1",
     "license": "MIT",
-    "author": "your name (https://github.com/<your github id>)",
-    "homepage": "<project web page url or this github repo url if no website available>",
+    "author": "Pluto https://github.com/devvaannsh",
+    "homepage": "https://github.com/devvaannsh/Quick-Actions",
     "engines": {
         "brackets": ">=2.0.0"
     },
-    "categories": "demo",
+    "categories": "editor",
     "keywords": [
-        "phcode", "extension", "demo"
+        "quick actions",
+        "action bar",
+        "toolbar",
+        "notepad++",
+        "buttons",
+        "save",
+        "cut",
+        "copy",
+        "paste",
+        "undo",
+        "redo",
+        "beautify",
+        "ui",
+        "interface"
     ],
     "files": [
         "main.js"
     ]
 }
-
