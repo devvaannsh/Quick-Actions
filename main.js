@@ -111,8 +111,6 @@ define(function (require, exports, module) {
     function init() {
         // Insert the action bar between titlebar and editor-holder
         $("#titlebar").after($actionBar);
-
-        WorkspaceManager.recomputeLayout(true);
         updateButtonStates();
     }
 
