@@ -104,11 +104,13 @@ define(function (require, exports, module) {
      * Used to initialize the action bar stuff.
      * Here we add the action bar to the editor and recompute the layout
      */
-    function init() {
-        $(".not-editor").before($actionBar);
-        WorkspaceManager.recomputeLayout(true);
-        updateButtonStates();
-    }
+function init() {
+    // Insert the action bar between titlebar and editor-holder
+    $("#titlebar").after($actionBar);
+
+    WorkspaceManager.recomputeLayout(true);
+    updateButtonStates();
+}
 
     AppInit.appReady(function () {
         init();
