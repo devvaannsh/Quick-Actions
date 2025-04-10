@@ -1,8 +1,3 @@
-/*
- * This extension creates an action bar at the top of the editor
- * which provides various options like cut, copy, paste, save, and many more like in Notepad++
- */
-
 define(function (require, exports, module) {
     "use strict";
 
@@ -13,6 +8,7 @@ define(function (require, exports, module) {
     const Commands = brackets.getModule("command/Commands");
     const EditorManager = brackets.getModule("editor/EditorManager");
     const DocumentManager = brackets.getModule("document/DocumentManager");
+    const BeautificationManager = brackets.getModule("features/BeautificationManager");
    
     const ActionBarHTML = require("text!./html/actionBar.html");
     ExtensionUtils.loadStyleSheet(module, 'styles/actionBar.css');
@@ -28,7 +24,8 @@ define(function (require, exports, module) {
         "copy": Commands.EDIT_COPY,
         "paste": Commands.EDIT_PASTE,
         "undo": Commands.EDIT_UNDO,
-        "redo": Commands.EDIT_REDO
+        "redo": Commands.EDIT_REDO,
+        "beautify": "edit.beautifyCode"
     };
    
     /**
@@ -45,7 +42,14 @@ define(function (require, exports, module) {
                 // as when the button is clicked the editor loses focus because of which operations like
                 // cut, copy, paste, undo, redo doesn't work
                 editor.focus();
-                CommandManager.execute(command);
+                
+                // Handle special case for beautify
+                if (actionName === "beautify") {
+                    // Call beautify function based on Brackets API
+                    BeautificationManager.beautifyEditor(editor);
+                } else {
+                    CommandManager.execute(command);
+                }
             }
         }
     }
@@ -59,7 +63,7 @@ define(function (require, exports, module) {
         
         // Check if document is available
         const hasDocument = !!document;
-        $("#save-button").toggleClass("disabled", !hasDocument);
+        $("#save-button, #beautify-button").toggleClass("disabled", !hasDocument);
         
         // For undo/redo, check if they're available
         if (editor) {
@@ -104,13 +108,13 @@ define(function (require, exports, module) {
      * Used to initialize the action bar stuff.
      * Here we add the action bar to the editor and recompute the layout
      */
-function init() {
-    // Insert the action bar between titlebar and editor-holder
-    $("#titlebar").after($actionBar);
+    function init() {
+        // Insert the action bar between titlebar and editor-holder
+        $("#titlebar").after($actionBar);
 
-    WorkspaceManager.recomputeLayout(true);
-    updateButtonStates();
-}
+        WorkspaceManager.recomputeLayout(true);
+        updateButtonStates();
+    }
 
     AppInit.appReady(function () {
         init();
